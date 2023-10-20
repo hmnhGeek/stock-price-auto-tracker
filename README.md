@@ -19,11 +19,11 @@ The Mini Stock Price Tracker is a simple web application designed to help users 
 
 ## Add-Ons
 
-In addition to the core features of the Mini Stock Price Tracker, we've implemented several add-ons to enhance your experience.
+In addition to the core features of the Mini Stock Price Tracker, I've implemented several add-ons to enhance your experience.
 
 ### Adding a Stock
 
-Users can add new stocks to their watchlist by providing the stock symbol, name, and its initial price. The application ensures that the symbol is in uppercase for consistency. Newly added stocks will be displayed in the stock selector, and their prices will be updated every minute along with the existing stocks.
+Users can add new stocks to their watchlist by providing the stock symbol, name, and its initial price. The application ensures that the symbol is in uppercase for consistency. Newly added stocks will be displayed in the stock selector, and their prices will be updated every minute just like the existing stocks.
 
 ### Deleting a Stock
 
