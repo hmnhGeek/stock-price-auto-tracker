@@ -49,7 +49,6 @@ const StockPriceDisplay = () => {
 
   return (
     <div>
-      <h2>Stock Price Tracker</h2>
       <Row>
         <Col xs={12}>
           <Button className='app-button add-stock-button' variant="primary" onClick={() => setIsModalOpen(true)}>Add Stock</Button>
