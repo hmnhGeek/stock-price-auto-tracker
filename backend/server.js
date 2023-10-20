@@ -86,7 +86,6 @@ app.get('/api/stock_names', async (req, res) => {
 });
 
 app.post('/api/add_stock', (req, res) => {
-    console.log("My request", req);
     const { symbol, name, price } = req.body;
   
     // Validate the request data
