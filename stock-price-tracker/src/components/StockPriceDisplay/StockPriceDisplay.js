@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from '../AddStocksModal/AddStockModal';
-import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
+import { Alert, Button, Col, ProgressBar, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
 import StockTable from '../StockTable/StockTable';
 import logo from '../../images/logo.png';
@@ -102,7 +102,12 @@ const StockPriceDisplay = () => {
 
       {
         chartData.labels.length >= SHOW_CHART_AT ? 
-        <StockChart data={chartData} /> : 
+        <>
+          <Alert key={"primary"} variant={"primary"}>
+            At max, {MAX_DATA_POINTS_ALLOWED} data points will be shown on the chart.
+          </Alert>
+          <StockChart data={chartData} />
+        </> : 
         selectedStock && <ProgressBar 
           now={(chartData.labels.length / SHOW_CHART_AT)*100} 
           label={`Gathering enough data points to show chart, ${(chartData.labels.length / SHOW_CHART_AT)*100}% done`} 
