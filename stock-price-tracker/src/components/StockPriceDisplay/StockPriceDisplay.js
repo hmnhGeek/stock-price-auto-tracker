@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from '../AddStocksModal/AddStockModal';
@@ -6,6 +6,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
 import StockTable from '../StockTable/StockTable';
 import logo from '../../images/logo.png';
+import StockChart from '../StockChart/StockChart';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -13,6 +14,8 @@ const StockPriceDisplay = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableStocks, setAvailableStocks] = useState([]);
   const [refetchToggle, setRefetchToggle] = useState(false);
+  const [chartData, setChartData] = useState({labels: [], priceHistory: []});
+  const MAX_DATA_POINTS_ALLOWED = useMemo(() => 20, []);
 
   const fetchAvailableStocks = async () => {
     try {
@@ -28,10 +31,29 @@ const StockPriceDisplay = () => {
     fetchAvailableStocks().then(response => setAvailableStocks(response)).catch(err => console.error(err));
   }, [refetchToggle]);
 
+  useEffect(() => {
+    if(chartData.labels.length === MAX_DATA_POINTS_ALLOWED) {
+      const updatedLabels = chartData.labels.slice(1);
+      const updatedPriceHistory = chartData.priceHistory.slice(1);
+
+      const newData = {
+        labels: updatedLabels,
+        priceHistory: updatedPriceHistory,
+      };
+
+      setChartData(newData);
+    }
+  }, [chartData]);
+
   const fetchStockPrice = async (symbol) => {
     try {
       const response = await axios.get(`http://localhost:3000/api/stock/${symbol}`);
       setPrice(response.data.price);
+
+      setChartData(c => ({...c, 
+        labels: [...c.labels, new Date().valueOf()], 
+        priceHistory: [...c.priceHistory, response.data.price]
+      }));
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +85,10 @@ const StockPriceDisplay = () => {
 
       {availableStocks.length > 0 && <Select
         options={availableStocks}
-        onChange={(selectedOption) => setSelectedStock(selectedOption)}
+        onChange={(selectedOption) => {
+          setSelectedStock(selectedOption);
+          setChartData({labels: [], priceHistory: []});
+        }}
       />}
       {selectedStock && (
         <div>
@@ -74,8 +99,8 @@ const StockPriceDisplay = () => {
         </div>
       )}
 
-    <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
-
+      {chartData.labels.length > 1 && <StockChart data={chartData} />}
+      <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
     </div>
   );
 };
