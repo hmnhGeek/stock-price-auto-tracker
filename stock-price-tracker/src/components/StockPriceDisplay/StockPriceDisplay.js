@@ -123,7 +123,7 @@ const StockPriceDisplay = () => {
       {
         selectedStock && 
         <div>
-          <p>Next update in: {countdown} seconds</p>
+          <p className='timer'>Next update in: <span className='seconds'>{countdown} seconds</span></p>
         </div>
       }
       
@@ -145,8 +145,8 @@ const StockPriceDisplay = () => {
           <StockChart data={chartData} />
         </> : 
         selectedStock && <ProgressBar 
-          now={(chartData.labels.length / SHOW_CHART_AT)*100} 
-          label={`Gathering enough data points to show chart, ${(chartData.labels.length / SHOW_CHART_AT)*100}% done`} 
+          now={((process.env.REACT_APP_UPDATE_SECONDS - countdown) / process.env.REACT_APP_UPDATE_SECONDS)*100} 
+          label={`Loading chart, ${(((process.env.REACT_APP_UPDATE_SECONDS - countdown) / process.env.REACT_APP_UPDATE_SECONDS)*100).toFixed(2)}% done`} 
         />
       }
       <AddStockModal 

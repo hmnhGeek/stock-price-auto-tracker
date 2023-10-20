@@ -11,3 +11,14 @@
 .logo-row {
     justify-content: center;
 }
+
+.timer {
+    margin-bottom: 0px !important;
+    float: right !important;
+    margin-top: 20px;
+}
+
+.seconds {
+    color: #32CD32;
+    font-weight: bolder;
+}
