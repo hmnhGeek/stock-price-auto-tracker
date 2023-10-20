@@ -41,7 +41,7 @@ The Mini Stock Price Tracker uses a MongoDB database to store the list of predef
 
 ### 1. Install and Start MongoDB
 
-If you haven't already, you'll need to install MongoDB on your local machine or use a cloud-based MongoDB service. You can download MongoDB from the [official MongoDB website](https://www.mongodb.com/try/download/community) or use a cloud-based service like MongoDB Atlas.
+If you haven't already, you'll need to install MongoDB on your local machine or use a cloud-based MongoDB service. You can download MongoDB from the [official MongoDB website](https://www.mongodb.com/try/download/community).
 
 ### 2. Start MongoDB Service
 
@@ -54,4 +54,4 @@ Open a terminal or command prompt and use the following command to create a data
 ```bash
 mongo
 use stock_tracker
-db.createCollection("stocks")```
+db.createCollection("stocks")
