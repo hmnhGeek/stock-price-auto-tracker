@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import AddStockModal from './AddStockModal';
+import AddStockModal from '../AddStocksModal/AddStockModal';
 import { Button, Col, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
-import StockTable from './StockTable';
+import StockTable from '../StockTable/StockTable';
+import logo from '../../images/logo.png';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -50,6 +51,10 @@ const StockPriceDisplay = () => {
 
   return (
     <div>
+      <Row className='logo-row'>
+        <img className='logo-image' src={logo} />
+      </Row>
+
       <Row>
         <Col xs={12}>
           <Button className='app-button add-stock-button' variant="primary" onClick={() => setIsModalOpen(true)}>Add Stock</Button>
