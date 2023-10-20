@@ -18,7 +18,7 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
     };
 
     // Make the API call to add the new stock using Axios
-    axios.post('http://127.0.0.1:3000/api/add_stock', newStock)
+    axios.post(`${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT}/api/add_stock`, newStock)
       .then(response => {
         console.log("Stock added successfully.", response.data);
       })
