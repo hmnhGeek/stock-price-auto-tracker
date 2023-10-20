@@ -69,3 +69,7 @@ The Mini Stock Price Tracker consists of both a backend and a frontend applicati
 2. Then use `npm start` to start the project.
 
 **The backend project will start automatically once you start the frontend project**.
+
+## Changing the update frequency
+
+You can change the time it takes to refresh the stock prices on screen by changing the value of `REACT_APP_UPDATE_SECONDS` in `.env` file of the frontend project. However, please note that you will need to restart the application to view the effects of this change.
