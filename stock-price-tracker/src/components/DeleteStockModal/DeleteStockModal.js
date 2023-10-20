@@ -11,7 +11,7 @@ const DeleteStockModal = ({ show, onHide, stocks, onDelete }) => {
     if (selectedStock) {
       const symbol = selectedStock.value;
 
-      axios.delete(`http://127.0.0.1:3000/api/delete_stock/${symbol}`)
+      axios.delete(`${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT}/api/delete_stock/${symbol}`)
         .then(() => {
           onDelete(symbol); // Notify the parent component that a stock has been deleted
         })

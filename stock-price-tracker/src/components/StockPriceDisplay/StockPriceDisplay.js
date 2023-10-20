@@ -24,7 +24,7 @@ const StockPriceDisplay = () => {
 
   const fetchAvailableStocks = async () => {
     try {
-        const response = await axios.get(`http://127.0.0.1:3000/api/stock_names`)
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT}/api/stock_names`)
         return response.data;
     }
     catch (error) {
@@ -52,7 +52,7 @@ const StockPriceDisplay = () => {
 
   const fetchStockPrice = async (symbol) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/stock/${symbol}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT}/api/stock/${symbol}`);
       setPrice(response.data.price);
 
       setChartData(c => ({...c, 
