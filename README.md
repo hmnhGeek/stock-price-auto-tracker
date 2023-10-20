@@ -63,3 +63,9 @@ The Mini Stock Price Tracker consists of both a backend and a frontend applicati
 ### Frontend Setup
 1. Navigate to the "/stock-price-tracker" by `cd /stock-price-tracker`.
 2. Then do `npm install` and let it finish.
+
+### Starting the project
+1. Navigate to the "/stock-price-tracker" by `cd /stock-price-tracker`.
+2. Then use `npm start` to start the project.
+
+**The backend project will start automatically once you start the frontend project**.
