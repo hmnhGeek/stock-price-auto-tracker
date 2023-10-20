@@ -18,7 +18,6 @@ const StockPriceDisplay = () => {
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [chartData, setChartData] = useState({labels: [], priceHistory: []});
 
-
   const MAX_DATA_POINTS_ALLOWED = useMemo(() => 20, []);
   const SHOW_CHART_AT = useMemo(() => parseInt(MAX_DATA_POINTS_ALLOWED * 0.2), []);
 
@@ -97,8 +96,9 @@ const StockPriceDisplay = () => {
         </Col>
       </Row>
 
-      {availableStocks.length > 0 && <Select
+      {availableStocks.length >= 0 && <Select
         options={availableStocks}
+        value={selectedStock}
         onChange={(selectedOption) => {
           setSelectedStock(selectedOption);
           setChartData({labels: [], priceHistory: []});
@@ -126,12 +126,28 @@ const StockPriceDisplay = () => {
           label={`Gathering enough data points to show chart, ${(chartData.labels.length / SHOW_CHART_AT)*100}% done`} 
         />
       }
-      <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
+      <AddStockModal 
+        isOpen={isModalOpen} 
+        closeModal={() => setIsModalOpen(false)}
+         onAdd={
+            () => {
+              setAvailableStocks([]);
+              setSelectedStock(null);
+              setChartData({labels: [], priceHistory: []});
+              setRefetchToggle(c => !c);
+          }
+        }
+      />
       <DeleteStockModal
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
         stocks={availableStocks} // Pass your stock data array here
-        onDelete={() => setRefetchToggle(c => !c)}
+        onDelete={() => {
+          setAvailableStocks([]);
+          setRefetchToggle(c => !c);
+          setSelectedStock(null);
+          setChartData({labels: [], priceHistory: []});
+        }}
       />
     </div>
   );
