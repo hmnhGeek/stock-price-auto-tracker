@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
 import './AddStockModal.css';
 
-const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
+const AddStockModal = ({ isOpen, closeModal, onAdd }) => {
   const [symbol, setSymbol] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -31,7 +31,7 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
     setName('');
     setPrice('');
     closeModal();
-    refetchList(c => !c);
+    onAdd();
   };
 
   return (

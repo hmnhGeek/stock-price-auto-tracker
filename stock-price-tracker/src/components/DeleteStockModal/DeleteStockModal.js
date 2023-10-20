@@ -13,7 +13,7 @@ const DeleteStockModal = ({ show, onHide, stocks, onDelete }) => {
 
       axios.delete(`${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT}/api/delete_stock/${symbol}`)
         .then(() => {
-          onDelete(symbol); // Notify the parent component that a stock has been deleted
+          onDelete(); // Notify the parent component that a stock has been deleted
         })
         .catch((error) => {
           console.error('Error deleting stock:', error);
