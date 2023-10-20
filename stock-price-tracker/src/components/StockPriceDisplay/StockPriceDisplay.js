@@ -86,7 +86,7 @@ const StockPriceDisplay = () => {
         <Col xs={12}>
           <Dropdown className='add-stock-button'>
             <Dropdown.Toggle className='app-button' variant="success" id="dropdown-basic">
-              Dropdown Button
+              Add/Delete Actions
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
