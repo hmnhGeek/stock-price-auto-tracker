@@ -28,7 +28,7 @@ const StockChart = props => {
                 ],
             }}
             options={options}
-        />;
+        />
     </div>
 }
 

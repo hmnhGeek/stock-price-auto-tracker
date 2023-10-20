@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from '../AddStocksModal/AddStockModal';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
 import StockTable from '../StockTable/StockTable';
 import logo from '../../images/logo.png';
@@ -16,6 +16,7 @@ const StockPriceDisplay = () => {
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [chartData, setChartData] = useState({labels: [], priceHistory: []});
   const MAX_DATA_POINTS_ALLOWED = useMemo(() => 20, []);
+  const SHOW_CHART_AT = useMemo(() => parseInt(MAX_DATA_POINTS_ALLOWED * 0.2), []);
 
   const fetchAvailableStocks = async () => {
     try {
@@ -99,7 +100,14 @@ const StockPriceDisplay = () => {
         </div>
       )}
 
-      {chartData.labels.length > 1 && <StockChart data={chartData} />}
+      {
+        chartData.labels.length >= SHOW_CHART_AT ? 
+        <StockChart data={chartData} /> : 
+        selectedStock && <ProgressBar 
+          now={(chartData.labels.length / SHOW_CHART_AT)*100} 
+          label={`Gathering enough data points to show chart, ${(chartData.labels.length / SHOW_CHART_AT)*100}% done`} 
+        />
+      }
       <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
     </div>
   );
