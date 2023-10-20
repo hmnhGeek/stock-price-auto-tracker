@@ -1,7 +1,8 @@
 // StockModal.js
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import axios from 'axios';
+import { Button, Modal } from 'react-bootstrap';
+import './AddStockModal.css';
 
 const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
   const [symbol, setSymbol] = useState('');
@@ -34,23 +35,31 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-    >
-      <h2>Add New Stock</h2>
-      <form>
-        <label>Symbol:</label>
-        <input type="text" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+    <Modal show={isOpen} onHide={closeModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>Add New Stock</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Remember to add the stock details below:</p>
+        <form>
+          <label>Symbol:</label>
+          <input type="text" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
 
-        <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <label>Name:</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-        <label>Price:</label>
-        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-
-        <button type="button" onClick={handleSubmit}>Add Stock</button>
-      </form>
+          <label>Price:</label>
+          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button className='app-button' variant="secondary" onClick={closeModal}>
+          Close
+        </Button>
+        <Button className='app-button' variant="primary" onClick={handleSubmit}>
+          Add Stock
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };

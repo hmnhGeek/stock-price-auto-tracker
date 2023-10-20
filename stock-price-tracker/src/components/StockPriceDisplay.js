@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from './AddStockModal';
+import { Button, Col, Row } from 'react-bootstrap';
+import './StockPriceDisplay.css';
+import StockTable from './StockTable';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -47,8 +50,11 @@ const StockPriceDisplay = () => {
 
   return (
     <div>
-      <h2>Stock Price Tracker</h2>
-      <button onClick={() => setIsModalOpen(true)}>Add Stock</button>
+      <Row>
+        <Col xs={12}>
+          <Button className='app-button add-stock-button' variant="primary" onClick={() => setIsModalOpen(true)}>Add Stock</Button>
+        </Col>
+      </Row>
 
       {availableStocks.length > 0 && <Select
         options={availableStocks}
@@ -56,8 +62,10 @@ const StockPriceDisplay = () => {
       />}
       {selectedStock && (
         <div>
-          <p>Selected Stock: {selectedStock.label}</p>
-          <p>Current Price: {price}</p>
+          <StockTable
+            stockName={selectedStock.label}
+            stockPrice={price}
+          />
         </div>
       )}
 
