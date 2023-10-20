@@ -1,7 +1,15 @@
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import { useEffect, useRef } from 'react';
 
 const StockChart = props => {
+    const elementToScroll = useRef();
+
+    useEffect(() => {
+        // Scroll to the element when the component is loaded
+        elementToScroll.current.scrollIntoView({ behavior: 'smooth' });
+      }, []);
+
     // Options for the chart
     const options = {
         scales: {
@@ -14,7 +22,7 @@ const StockChart = props => {
         },
     };
 
-    return <div style={{ height: '400px', width: '100%', display: "flex", justifyContent: "center" }}>
+    return <div ref={elementToScroll} style={{ height: '400px', width: '100%', display: "flex", justifyContent: "center" }}>
         <Line
             datasetIdKey='id'
             data={{
