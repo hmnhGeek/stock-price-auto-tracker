@@ -49,9 +49,4 @@ After installation, start the MongoDB service. The specific steps may vary depen
 
 ### 3. Create a Database
 
-Open a terminal or command prompt and use the following command to create a database named "stock_tracker" if it doesn't already exist:
-
-```bash
-mongo
-use stock_tracker
-db.createCollection("stocks")
+Inside your mongodb instance, create a database called `stock_tracker` and a collection inside it called `stocks`.
