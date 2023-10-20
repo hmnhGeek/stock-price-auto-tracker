@@ -1,7 +1,7 @@
 import React from 'react';
-import StockPriceDisplay from './components/StockPriceDisplay';
+import StockPriceDisplay from './components/StockPriceDisplay/StockPriceDisplay';
 import { Container } from 'react-bootstrap';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 
 function App() {
   return (
