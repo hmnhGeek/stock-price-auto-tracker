@@ -34,3 +34,24 @@ If you no longer wish to track a particular stock, the Mini Stock Price Tracker 
 The Mini Stock Price Tracker incorporates Chart.js to provide a visual representation of stock price trends. A line chart is used to display the live stock rates of the selected stock, allowing users to observe fluctuations and changes over time. This chart updates automatically every minute to reflect the latest stock prices.
 
 We've added these features to make the Mini Stock Price Tracker a more comprehensive tool for tracking and managing stock investments. Feel free to explore and utilize these functionalities as part of your stock monitoring experience.
+
+## Setting up MongoDB Database and Collection
+
+The Mini Stock Price Tracker uses a MongoDB database to store the list of predefined stocks with their current prices. To set up the database and collection, follow these steps:
+
+### 1. Install and Start MongoDB
+
+If you haven't already, you'll need to install MongoDB on your local machine or use a cloud-based MongoDB service. You can download MongoDB from the [official MongoDB website](https://www.mongodb.com/try/download/community) or use a cloud-based service like MongoDB Atlas.
+
+### 2. Start MongoDB Service
+
+After installation, start the MongoDB service. The specific steps may vary depending on your operating system.
+
+### 3. Create a Database
+
+Open a terminal or command prompt and use the following command to create a database named "stock_tracker" if it doesn't already exist:
+
+```bash
+mongo
+use stock_tracker
+db.createCollection("stocks")```
