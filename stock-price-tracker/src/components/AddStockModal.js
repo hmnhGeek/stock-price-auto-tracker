@@ -53,10 +53,10 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={closeModal}>
+        <Button className='app-button' variant="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button className='app-button' variant="primary" onClick={handleSubmit}>
           Add Stock
         </Button>
       </Modal.Footer>

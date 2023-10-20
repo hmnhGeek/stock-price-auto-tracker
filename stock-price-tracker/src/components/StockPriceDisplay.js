@@ -4,6 +4,7 @@ import Select from 'react-select';
 import AddStockModal from './AddStockModal';
 import { Button, Col, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
+import StockTable from './StockTable';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -61,8 +62,10 @@ const StockPriceDisplay = () => {
       />}
       {selectedStock && (
         <div>
-          <p>Selected Stock: {selectedStock.label}</p>
-          <p>Current Price: {price}</p>
+          <StockTable
+            stockName={selectedStock.label}
+            stockPrice={price}
+          />
         </div>
       )}
 
