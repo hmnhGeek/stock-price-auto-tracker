@@ -50,3 +50,16 @@ After installation, start the MongoDB service. The specific steps may vary depen
 ### 3. Create a Database
 
 Inside your mongodb instance, create a database called `stock_tracker` and a collection inside it called `stocks`.
+
+## Setting Up Backend and Frontend Projects
+
+The Mini Stock Price Tracker consists of both a backend and a frontend application. Here's how you can set up and run both projects:
+
+### Backend Setup
+
+1. Navigate to the "/backend" folder by `cd /backend`.
+2. Then do `npm install` and let it finish.
+
+### Frontend Setup
+1. Navigate to the "/stock-price-tracker" by `cd /stock-price-tracker`.
+2. Then do `npm install` and let it finish.
