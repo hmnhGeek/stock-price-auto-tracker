@@ -56,7 +56,7 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
         <Button className='app-button' variant="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button className='app-button' variant="primary" onClick={handleSubmit}>
+        <Button className='app-button' variant="primary" onClick={handleSubmit} disabled={!symbol || !name || isNaN(price) || price <= 0}>
           Add Stock
         </Button>
       </Modal.Footer>
