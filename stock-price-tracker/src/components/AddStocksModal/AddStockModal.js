@@ -43,7 +43,7 @@ const AddStockModal = ({ isOpen, closeModal, onAdd }) => {
         <p>Remember to add the stock details below:</p>
         <form>
           <label>Symbol:</label>
-          <input type="text" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+          <input type="text" value={symbol} onChange={(e) => setSymbol(e.target.value.toUpperCase())} />
 
           <label>Name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
