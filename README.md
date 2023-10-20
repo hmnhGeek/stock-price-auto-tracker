@@ -45,7 +45,7 @@ If you haven't already, you'll need to install MongoDB on your local machine or 
 
 ### 2. Start MongoDB Service
 
-After installation, start the MongoDB service. The specific steps may vary depending on your operating system.
+After installation, start the MongoDB service. The specific steps may vary depending on your operating system. **Please ensure that your service is running on port 27017, i.e., the URI should be `mongodb://127.0.0.1:27017`.**
 
 ### 3. Create a Database
 
