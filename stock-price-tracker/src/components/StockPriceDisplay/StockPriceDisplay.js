@@ -17,9 +17,10 @@ const StockPriceDisplay = () => {
   const [availableStocks, setAvailableStocks] = useState([]);
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [chartData, setChartData] = useState({labels: [], priceHistory: []});
+  const [countdown, setCountdown] = useState(parseInt(process.env.REACT_APP_UPDATE_SECONDS));
 
   const MAX_DATA_POINTS_ALLOWED = useMemo(() => 20, []);
-  const SHOW_CHART_AT = useMemo(() => parseInt(MAX_DATA_POINTS_ALLOWED * 0.2), []);
+  const SHOW_CHART_AT = useMemo(() => 2, []);
 
   const fetchAvailableStocks = async () => {
     try {
@@ -64,14 +65,28 @@ const StockPriceDisplay = () => {
   };
 
   useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(countdownInterval);
+  }, [countdown]);
+
+  useEffect(() => {
+    setCountdown(parseInt(process.env.REACT_APP_UPDATE_SECONDS));
     if (selectedStock) {
       fetchStockPrice(selectedStock.value);
 
       const intervalId = setInterval(() => {
         fetchStockPrice(selectedStock.value);
-      }, 60000); // Fetch every minute
+        setCountdown(parseInt(process.env.REACT_APP_UPDATE_SECONDS));
+      }, parseInt(process.env.REACT_APP_UPDATE_SECONDS)*1000); // Fetch every minute
 
-      return () => clearInterval(intervalId);
+      return () => {
+        clearInterval(intervalId);
+      };
     }
   }, [selectedStock]);
 
@@ -104,6 +119,14 @@ const StockPriceDisplay = () => {
           setChartData({labels: [], priceHistory: []});
         }}
       />}
+
+      {
+        selectedStock && 
+        <div>
+          <p>Next update in: {countdown} seconds</p>
+        </div>
+      }
+      
       {selectedStock && (
         <div>
           <StockTable
@@ -135,6 +158,7 @@ const StockPriceDisplay = () => {
               setSelectedStock(null);
               setChartData({labels: [], priceHistory: []});
               setRefetchToggle(c => !c);
+              setCountdown(parseInt(process.env.REACT_APP_UPDATE_SECONDS))
           }
         }
       />
@@ -147,6 +171,7 @@ const StockPriceDisplay = () => {
           setRefetchToggle(c => !c);
           setSelectedStock(null);
           setChartData({labels: [], priceHistory: []});
+          setCountdown(parseInt(process.env.REACT_APP_UPDATE_SECONDS))
         }}
       />
     </div>
