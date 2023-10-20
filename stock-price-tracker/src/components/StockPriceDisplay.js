@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
+import AddStockModal from './AddStockModal';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [price, setPrice] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [availableStocks, setAvailableStocks] = useState([]);
 
-  // Define the list of predefined stocks
-  const stockOptions = [
-    { value: 'AAPL', label: 'Apple Inc.' },
-    { value: 'GOOG', label: 'Alphabet Inc.' },
-    { value: 'MSFT', label: 'Microsoft Corporation' },
-    // Add more stocks as needed
-  ];
+  const fetchAvailableStocks = async () => {
+    try {
+        const response = await axios.get(`http://127.0.0.1:3000/api/stock_names`)
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchAvailableStocks().then(response => setAvailableStocks(response)).catch(err => console.error(err));
+  }, []);
 
   const fetchStockPrice = async (symbol) => {
     try {
@@ -38,16 +47,21 @@ const StockPriceDisplay = () => {
   return (
     <div>
       <h2>Stock Price Tracker</h2>
-      <Select
-        options={stockOptions}
+      <button onClick={() => setIsModalOpen(true)}>Add Stock</button>
+
+      {availableStocks.length > 0 && <Select
+        options={availableStocks}
         onChange={(selectedOption) => setSelectedStock(selectedOption)}
-      />
+      />}
       {selectedStock && (
         <div>
           <p>Selected Stock: {selectedStock.label}</p>
           <p>Current Price: {price}</p>
         </div>
       )}
+
+    <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+
     </div>
   );
 };

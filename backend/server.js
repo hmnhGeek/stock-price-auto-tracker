@@ -10,6 +10,7 @@ const RATE_UPDATE_FREQ_IN_SECONDS = 5;
 
 // Use the cors middleware to enable CORS
 app.use(cors());
+app.use(express.json());
 
 // Set up MongoDB connection
 mongoose.connect('mongodb://127.0.0.1:27017/stock_tracker', {
@@ -74,7 +75,7 @@ app.get('/api/stock_names', async (req, res) => {
     try {
         Stock.find({}).exec().then(stocks => {
             const stocksArray = stocks.map(stock => stock.toObject());
-            const stockNames = stocksArray.map(stock => stock.name);
+            const stockNames = stocksArray.map(stock => {return {label: stock.name, value: stock.symbol}});
             res.json(stockNames);            
         }).catch(err => console.log(err));
     }
@@ -82,6 +83,32 @@ app.get('/api/stock_names', async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+});
+
+app.post('/api/add_stock', (req, res) => {
+    console.log("My request", req);
+    const { symbol, name, price } = req.body;
+  
+    // Validate the request data
+    if (!symbol || !name || !price) {
+      res.status(400).json({ error: 'Invalid stock data' });
+      return;
+    }
+  
+    // Create a new Stock document
+    const newStock = new Stock({
+      symbol,
+      name,
+      price,
+    });
+  
+    newStock.save().then(savedStock => {
+        // Stock saved successfully
+        res.status(201).json(savedStock);
+    }).catch(err => {
+        console.error('Error saving new stock:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    });
 });
 
 app.listen(port, () => {
