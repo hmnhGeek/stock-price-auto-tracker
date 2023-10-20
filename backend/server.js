@@ -110,6 +110,21 @@ app.post('/api/add_stock', (req, res) => {
     });
 });
 
+app.delete('/api/delete_stock/:symbol', (req, res) => {
+  const symbol = req.params.symbol;
+
+  Stock.findOneAndDelete({ symbol }).then((deletedStock) => {
+    if (!deletedStock) {
+      res.status(404).json({ error: 'Stock not found' });
+    } else {
+      res.json({ message: 'Stock deleted successfully' });
+    }
+  }).catch((err) => {
+    console.error('Error deleting stock:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

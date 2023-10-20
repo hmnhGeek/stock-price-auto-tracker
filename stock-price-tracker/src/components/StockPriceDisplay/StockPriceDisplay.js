@@ -2,19 +2,23 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from '../AddStocksModal/AddStockModal';
-import { Alert, Button, Col, ProgressBar, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Dropdown, ProgressBar, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
 import StockTable from '../StockTable/StockTable';
 import logo from '../../images/logo.png';
 import StockChart from '../StockChart/StockChart';
+import DeleteStockModal from '../DeleteStockModal/DeleteStockModal';
 
 const StockPriceDisplay = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [price, setPrice] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [availableStocks, setAvailableStocks] = useState([]);
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [chartData, setChartData] = useState({labels: [], priceHistory: []});
+
+
   const MAX_DATA_POINTS_ALLOWED = useMemo(() => 20, []);
   const SHOW_CHART_AT = useMemo(() => parseInt(MAX_DATA_POINTS_ALLOWED * 0.2), []);
 
@@ -27,7 +31,7 @@ const StockPriceDisplay = () => {
         console.error(error);
     }
   }
-
+  
   useEffect(() => {
     fetchAvailableStocks().then(response => setAvailableStocks(response)).catch(err => console.error(err));
   }, [refetchToggle]);
@@ -80,7 +84,16 @@ const StockPriceDisplay = () => {
 
       <Row>
         <Col xs={12}>
-          <Button className='app-button add-stock-button' variant="primary" onClick={() => setIsModalOpen(true)}>Add Stock</Button>
+          <Dropdown className='add-stock-button'>
+            <Dropdown.Toggle className='app-button' variant="success" id="dropdown-basic">
+              Add/Delete Actions
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setIsModalOpen(true)}>Add Stock</Dropdown.Item>
+              <Dropdown.Item onClick={() => setShowDeleteModal(true)}>Delete Stock</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
       </Row>
 
@@ -114,6 +127,12 @@ const StockPriceDisplay = () => {
         />
       }
       <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
+      <DeleteStockModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        stocks={availableStocks} // Pass your stock data array here
+        onDelete={() => setRefetchToggle(c => !c)}
+      />
     </div>
   );
 };
