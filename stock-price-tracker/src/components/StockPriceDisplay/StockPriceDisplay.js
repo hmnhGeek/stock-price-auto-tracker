@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import AddStockModal from '../AddStocksModal/AddStockModal';
-import { Alert, Button, Col, ProgressBar, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Dropdown, ProgressBar, Row } from 'react-bootstrap';
 import './StockPriceDisplay.css';
 import StockTable from '../StockTable/StockTable';
 import logo from '../../images/logo.png';
@@ -84,8 +84,16 @@ const StockPriceDisplay = () => {
 
       <Row>
         <Col xs={12}>
-          <Button className='app-button add-stock-button' variant="primary" onClick={() => setIsModalOpen(true)}>Add Stock</Button>
-          <Button className='app-button add-stock-button' variant="warning" onClick={() => setShowDeleteModal(true)}>Remove Stock</Button>
+          <Dropdown className='add-stock-button'>
+            <Dropdown.Toggle className='app-button' variant="success" id="dropdown-basic">
+              Dropdown Button
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setIsModalOpen(true)}>Add Stock</Dropdown.Item>
+              <Dropdown.Item onClick={() => setShowDeleteModal(true)}>Delete Stock</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
       </Row>
 

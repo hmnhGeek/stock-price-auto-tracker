@@ -35,10 +35,10 @@ const DeleteStockModal = ({ show, onHide, stocks, onDelete }) => {
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button className='app-button' variant="secondary" onClick={onHide}>
           Close
         </Button>
-        <Button variant="danger" onClick={handleDelete}>
+        <Button className='app-button' variant="danger" onClick={handleDelete}>
           Delete
         </Button>
       </Modal.Footer>
