@@ -69,7 +69,7 @@ const StockPriceDisplay = () => {
 
       const intervalId = setInterval(() => {
         fetchStockPrice(selectedStock.value);
-      }, 3000); // Fetch every minute
+      }, 60000); // Fetch every minute
 
       return () => clearInterval(intervalId);
     }
