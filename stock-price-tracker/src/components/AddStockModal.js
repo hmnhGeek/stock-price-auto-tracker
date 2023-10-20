@@ -30,7 +30,7 @@ const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
     setName('');
     setPrice('');
     closeModal();
-    refetchList();
+    refetchList(c => !c);
   };
 
   return (
