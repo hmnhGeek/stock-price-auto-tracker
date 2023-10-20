@@ -8,6 +8,7 @@ const StockPriceDisplay = () => {
   const [price, setPrice] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableStocks, setAvailableStocks] = useState([]);
+  const [refetchToggle, setRefetchToggle] = useState(false);
 
   const fetchAvailableStocks = async () => {
     try {
@@ -21,7 +22,7 @@ const StockPriceDisplay = () => {
 
   useEffect(() => {
     fetchAvailableStocks().then(response => setAvailableStocks(response)).catch(err => console.error(err));
-  }, []);
+  }, [refetchToggle]);
 
   const fetchStockPrice = async (symbol) => {
     try {
@@ -60,7 +61,7 @@ const StockPriceDisplay = () => {
         </div>
       )}
 
-    <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+    <AddStockModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} refetchList={setRefetchToggle} />
 
     </div>
   );

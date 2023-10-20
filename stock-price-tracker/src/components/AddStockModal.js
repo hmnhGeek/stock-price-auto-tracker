@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 
-const AddStockModal = ({ isOpen, closeModal, addStock }) => {
+const AddStockModal = ({ isOpen, closeModal, refetchList }) => {
   const [symbol, setSymbol] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -19,11 +19,9 @@ const AddStockModal = ({ isOpen, closeModal, addStock }) => {
     // Make the API call to add the new stock using Axios
     axios.post('http://127.0.0.1:3000/api/add_stock', newStock)
       .then(response => {
-        // Handle the API response here if needed
-        console.log('API response:', response.data);
+        console.log("Stock added successfully.", response.data);
       })
       .catch(error => {
-        // Handle any API call errors here
         console.error('API error:', error);
       });
 
@@ -32,6 +30,7 @@ const AddStockModal = ({ isOpen, closeModal, addStock }) => {
     setName('');
     setPrice('');
     closeModal();
+    refetchList();
   };
 
   return (
