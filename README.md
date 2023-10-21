@@ -79,3 +79,23 @@ You can change the time it takes to refresh the stock prices on screen by changi
 ### Homepage
 
 !["Homepage"](./product_images/home.png)
+
+### Searching stocks
+
+!["Search Stocks"](./product_images/search.png)
+
+### Loading stock price
+
+!["Loading Stock Price"](./product_images/progress.png)
+
+### Live stock prices
+
+!["Live Stock Prices"](./product_images/chart.png)
+
+### Add new stock
+
+!["Add Stocks"](./product_images/add.png)
+
+### Delete stocks
+
+!["Delete Stocks"](./product_images/delete.png)
